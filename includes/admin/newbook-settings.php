@@ -111,9 +111,6 @@ function newbook_settings_validation( $fields ) {
     if( ! empty( $fields['auth']['username'] ) && ! empty( $fields['auth']['password'] ) ) {
         $newbook = new NewBook_REST_API();
         $newbook->authenticate( $fields['auth']['username'], $fields['auth']['password'] );
-
-        var_dump( $newbook->getResponse() );
-        exit;
     }
 
     return $fields;

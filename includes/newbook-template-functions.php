@@ -14,7 +14,9 @@ add_action( 'wp_enqueue_scripts', 'newbook_scripts' );
 
 
 function newbook_bookings_page_content( $content ) {
-    if( ! is_singular() || is_admin() ) {
+    global $post;
+
+    if( ! is_singular() || is_admin() || $post->ID !== newbook_get_bookings_page() ) {
         return $content;
     }
 

@@ -26,7 +26,7 @@ function newbook_bookings_page_content( $content ) {
     }
 
     // Show the availability form above results
-    $content .= apply_filters( 'newbook_bookings_show_availability_form', do_shortcode( '[newbook-availability]' ) );
+    $content .= apply_filters( 'newbook_bookings_show_availability_form', '[newbook-availability]' );
 
     $content .= apply_filters( 'newbook_bookings_after_content', $content );
 

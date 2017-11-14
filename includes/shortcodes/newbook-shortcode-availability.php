@@ -18,7 +18,7 @@ if( ! function_exists( 'newbook_shortcode_availability' ) ) {
         wp_enqueue_script( 'jquery-ui-datepicker' );
 
         add_action( 'wp_footer', function() {
-            print "<script>(function($) { $('.datepicker').datepicker({ dateFormat: '" . newbook_get_date_format() . "' }); } )(jQuery);</script>";
+            print "<script>(function($) { $('.datepicker').datepicker({ dateFormat: '" . newbook_convert_date_format_js() . "' }); } )(jQuery);</script>";
         }, 999 );
 
         ob_start();

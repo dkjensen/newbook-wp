@@ -5,13 +5,13 @@ if( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
 <div class="newbook-availability-form">
-    <form method="get" action="<?php print newbook_get_bookings_url(); ?>" id="newbook-availability">
+    <form method="get" action="<?php print newbook_get_bookings_url(); ?>" id="newbook-availability" class="newbook-form">
         <?php
         /**
          * Arrival date
          */
         if( $atts['available_from'] !== 'false' && $atts['available_from'] !== false ) : ?>
-            <div class="newbook-af-field" data-field="available_from">
+            <div class="newbook-af-field" data-field="available_from" data-label="<?php _e( 'Arrival Date', 'newbook' ); ?>">
                 <input type="text" class="datepicker" name="available_from" placeholder="<?php _e( 'Arrival Date', 'newbook' ); ?>" value="<?php print $atts['available_from']; ?>" />
             </div>
         <?php
@@ -21,7 +21,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
          * Departure date
          */
         if( $atts['available_to'] !== 'false' && $atts['available_to'] !== false ) : ?>
-            <div class="newbook-af-field" data-field="available_to">
+            <div class="newbook-af-field" data-field="available_to" data-label="<?php _e( 'Departure Date', 'newbook' ); ?>">
                 <input type="text" class="datepicker" name="available_to" placeholder="<?php _e( 'Departure Date', 'newbook' ); ?>" value="<?php print $atts['available_to']; ?>" />
             </div>
         <?php
@@ -31,7 +31,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
          * Adults
          */
         if( $atts['adults'] !== 'false' && $atts['adults'] !== false ) : ?>
-            <div class="newbook-af-field" data-field="adults">
+            <div class="newbook-af-field" data-field="adults" data-label="<?php _e( 'Adults', 'newbook' ); ?>">
                 <select name="adults">
                     <option value=""><?php printf( '-- %s --', __( 'Adults', 'newbook' ) ); ?></option>
                     <?php for( $i = 1; $i <= 20; $i++ ) printf( '<option value="%1$d" %2$s>%1$d</option>', $i, selected( $i, $atts['adults'], false ) ); ?>
@@ -44,7 +44,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
          * Children
          */
         if( $atts['children'] !== 'false' && $atts['children'] !== false ) : ?>
-            <div class="newbook-af-field" data-field="children">
+            <div class="newbook-af-field" data-field="children" data-label="<?php _e( 'Children', 'newbook' ); ?>">
                 <select name="children">
                     <option value=""><?php printf( '-- %s --', __( 'Children', 'newbook' ) ); ?></option>
                     <?php for( $i = 0; $i <= 20; $i++ ) printf( '<option value="%1$d" %2$s>%1$d</option>', $i, selected( $i, $atts['children'], false ) ); ?>
@@ -57,7 +57,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
          * Infants
          */
         if( $atts['infants'] !== 'false' && $atts['infants'] !== false ) : ?>
-            <div class="newbook-af-field" data-field="infants">
+            <div class="newbook-af-field" data-field="infants" data-label="<?php _e( 'Infants', 'newbook' ); ?>">
                 <select name="infants">
                     <option value=""><?php printf( '-- %s --', __( 'Infants', 'newbook' ) ); ?></option>
                     <?php for( $i = 0; $i <= 20; $i++ ) printf( '<option value="%1$d" %2$s>%1$d</option>', $i, selected( $i, $atts['infants'], false ) ); ?>
@@ -70,7 +70,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
          * Animals field
          */
         if( $atts['animals'] !== 'false' && $atts['animals'] !== false ) : ?>
-            <div class="newbook-af-field" data-field="animals">
+            <div class="newbook-af-field" data-field="animals" data-label="<?php _e( 'Animals', 'newbook' ); ?>">
                 <select name="animals">
                     <option value=""><?php printf( '-- %s --', __( 'Animals', 'newbook' ) ); ?></option>
                     <?php for( $i = 0; $i <= 20; $i++ ) printf( '<option value="%1$d" %2$s>%1$d</option>', $i, selected( $i, $atts['animals'], false ) ); ?>
@@ -79,6 +79,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
         <?php endif; ?>
 
         <?php wp_nonce_field( 'newbook_af' ); ?>
+        <input type="hidden" name="_nbsearch" value="1" />
 
         <div class="newbook-submit">
             <input type="submit" class="button newbook-button submit" value="<?php _e( 'Check Availability', 'newbook' ); ?>" />

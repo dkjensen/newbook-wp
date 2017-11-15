@@ -152,8 +152,12 @@ function newbook_settings_validation( $fields ) {
         $newbook->setEndpoint( $fields['endpoint'] );
         $newbook->authenticate( $fields['auth']['username'], $fields['auth']['password'] );
 
-        if( sizeof( $newbook->getData() ) === 1 && is_array( $newbook->getData() ) ) {
-            $fields['api_key'] = key( $newbook->getData() );
+        if( $newbook->isSuccess() ) {
+            if( sizeof( $newbook->getData() ) === 1 && is_array( $newbook->getData() ) ) {
+                $fields['api_key'] = key( $newbook->getData() );
+            }
+        }else {
+             add_settings_error( 'newbook_settings', '', esc_html__( $newbook->getMessage() ), 'error' );
         }
 
         update_option( 'newbook_properties', $newbook->getData() );

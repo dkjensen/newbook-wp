@@ -20,6 +20,7 @@ require_once 'includes/shortcodes/newbook-shortcode-availability.php';
 // NewBook API
 require_once 'includes/class-newbook-rest-api.php';
 require_once 'includes/class-newbook-category.php';
+require_once 'includes/class-newbook-bookings.php';
 
 if( is_admin() ) {
     require_once 'includes/admin/newbook-settings.php';

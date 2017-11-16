@@ -52,10 +52,10 @@ function newbook_bookings_parse_request() {
             
             // Search availability/pricing
             case 1 :
-                $availability = new NewBook_REST_API();
+                $availability = new NewBook_Bookings();
                 $availability->availabilityPricing( $_GET['available_from'], $_GET['available_to'], $_GET['adults'], $_GET['children'], $_GET['infants'], $_GET['animals'] )
                              ->send();
-
+                             
                 if( $availability->isSuccess() ) {
                     $availability = $availability->getData();
             
@@ -65,7 +65,7 @@ function newbook_bookings_parse_request() {
             
                     if( $category->isSuccess() ) {
                         $categories = $category->getData();
-            
+
                         foreach( $categories as $key => $category ) {
                             if( ! array_key_exists( $category['category_id'], $availability ) ) {
                                 unset( $categories[$key] );

@@ -24,15 +24,6 @@ if( ! defined( 'ABSPATH' ) ) exit;
                 endfor;
             }
         ?>
-        <?php /*
-        <ul class="category-images-nav">
-            <?php for( $i = 0; $i < sizeof( $category['images'] ); $i++ ) : ?>
-
-            <li class="category-image-nav-item" data-for="cat-image-<?php print $i; ?>"><label for="cat-image-<?php print $i; ?>"><?php print $i; ?></label></li>
-
-            <?php endfor; ?>
-        </ul>
-        */ ?>
     </div>
     <div class="category-content">
         <div class="category-name"><h2><?php print newbook_get_category_field( 'category_name', $category ); ?></h2></div>
@@ -54,7 +45,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
         <div class="category-pricing">
             <?php print newbook_get_category_price_html( $category ); ?>
 
-            <a href="https://publicdev.newbook.cloud/instances_1110/?available_from=1510840800&available_to=1511532000&force_category_id=39" target="_blank" class="button"><?php _e( 'Click to Book', 'newbook' ); ?></a>
+            <div class="booking-button"><?php print newbook_get_category_booking_button( $category ); ?></div>
         </div>
     </div>
 </div>

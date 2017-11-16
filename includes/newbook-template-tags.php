@@ -143,7 +143,11 @@ function newbook_get_category_price_html( $category ) {
     $price = newbook_get_category_price( $category );
     $currency = apply_filters( 'newbook_currency_symbol', '$' );
 
-    $html = sprintf( '<span class="category-price"><span>%s%s</span> %s</span>', $currency, $price, __( 'per night', 'newbook' ) );
+    if( is_float( $price ) || is_integer( $price ) ) {
+        $html = sprintf( '<span class="category-price"><span>%s%s</span> %s</span>', $currency, $price, __( 'per night', 'newbook' ) );
+    }else {
+        $html = sprintf( '<span class="category-price">%s</span>', $price );
+    }
 
     return apply_filters( 'newbook_category_price_html', $html, $price, $category );
 }
@@ -160,4 +164,47 @@ function newbook_get_category_description( $category, $trim = 50 ) {
     <div class="category-description-reveal"><?php print apply_filters( 'comment_text', $description ); ?></div>
 
     <?php
+}
+
+/**
+ * Return status of category availability
+ *
+ * @param array $category
+ * @return int  0 - No availability
+ *              1 - Partial availability
+ *              2 - Full availability
+ */
+function newbook_get_category_availability( $category ) {
+    $availability = 0;
+
+    if( ! empty( $category['sites_available'] ) ) {
+        $sites_available = array_filter( (array) $category['sites_available'] );
+        $sites_diff = array_diff( (array) $category['sites_available'], $sites_available );
+
+        if( sizeof( $sites_diff ) == 0 ) {
+            $availability = 2;
+        }elseif( $sites_diff > 0 && $sites_diff < sizeof( (array) $category['sites_available'] ) ) {
+            $availability = 1;
+        }    
+    }
+
+    return apply_filters( 'newbook_get_category_availability', $availability, $category );
+}
+
+function newbook_get_category_booking_button( $category ) {
+    $button_text = __( 'Booking Unavailable', 'newbook' );
+    $booking_url = '#';
+
+    if( ! empty( $category['online_booking_url'] ) ) {
+        $booking_url  = esc_url( $category['online_booking_url'] );
+        $availability = newbook_get_category_availability( $category );
+
+        if( $availability == 2 ) {
+            $button_text = __( 'Click to Book', 'newbook' );
+        }elseif( $availability == 1 ) {
+            $button_text = __( 'Partial Booking Available', 'newbook' );
+        }
+    }
+
+    return apply_filters( 'newbook_get_category_booking_button', sprintf( '<a href="%s" target="_blank" rel="nofollow" class="newbook-button button">%s</a>', $booking_url, $button_text ), $category );
 }

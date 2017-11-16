@@ -6,7 +6,7 @@ class NewBook_Category extends NewBook_REST_API {
         $this->setRequest( array(
             'request_action'    => 'accommodation_category_list', 
             'category_id'       => $category_id,
-            'type_id'           => $type_id,
+            'type_id'           => $type_id
         ) );
     }
 }
